@@ -1,7 +1,7 @@
-package com.wang.gmall.user.service;
+package com.wang.gmall.service;
 
-import com.wang.gmall.user.bean.UmsMember;
-import com.wang.gmall.user.bean.UmsMemberReceiveAddress;
+import com.wang.gmall.bean.UmsMember;
+import com.wang.gmall.bean.UmsMemberReceiveAddress;
 
 import java.util.List;
 
@@ -21,4 +21,8 @@ public interface UmsMemberService {
     int updateUmsMemberReceiveAddress(UmsMemberReceiveAddress umsMemberReceiveAddress);
 
     int deleteUmsMemberReceiveAddress(String id);
+
+    UmsMember getUmsMemberById(String id);
+
+    UmsMemberReceiveAddress getUmsMemberReceiveAddressById(String id);
 }

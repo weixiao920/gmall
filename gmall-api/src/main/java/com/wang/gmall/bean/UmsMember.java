@@ -1,4 +1,4 @@
-package com.wang.gmall.user.bean;
+package com.wang.gmall.bean;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

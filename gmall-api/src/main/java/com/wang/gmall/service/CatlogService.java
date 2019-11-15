@@ -1,6 +1,8 @@
 package com.wang.gmall.service;
 
 import com.wang.gmall.bean.PmsBaseCatalog1;
+import com.wang.gmall.bean.PmsBaseCatalog2;
+import com.wang.gmall.bean.PmsBaseCatalog3;
 
 import java.util.List;
 
@@ -9,5 +11,9 @@ import java.util.List;
  * @date 2019/11/13 17:44
  */
 public interface CatlogService {
-    public List<PmsBaseCatalog1> getCatlog1() ;
+    List<PmsBaseCatalog1> getCatlog1() ;
+
+    List<PmsBaseCatalog2> getCatlog2(String catalog2);
+
+    List<PmsBaseCatalog3> getCatlog3(String catalog2Id);
 }

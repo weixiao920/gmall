@@ -1,6 +1,7 @@
 package com.wang.gmall.service;
 
 import com.wang.gmall.bean.PmsBaseSaleAttr;
+import com.wang.gmall.bean.PmsProductImage;
 import com.wang.gmall.bean.PmsProductInfo;
 import com.wang.gmall.bean.PmsProductSaleAttr;
 
@@ -14,4 +15,10 @@ public interface SpuSerivce {
     List<PmsProductInfo> spuList(String catalog3Id);
 
     List<PmsBaseSaleAttr> getbaseSaleAttrList();
+
+    String saveSpuInfo(PmsProductInfo pmsProductInfo);
+
+    List<PmsProductSaleAttr> spuSaleAttrList(String spuId);
+
+    List<PmsProductImage> spuImageList(String spuId);
 }

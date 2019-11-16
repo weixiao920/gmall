@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,18 +24,34 @@ public class AttrServiceImpl implements AttrService {
     AttrInfoMapper attrInfoMapper;
     @Autowired
     AttrValueMapper attrValueMapper;
+
     @Override
+    /**
+     * 获取平台属性
+     */
     public List<PmsBaseAttrInfo> getAttrInfoList(String catalog3Id) {
-        PmsBaseAttrInfo pmsBaseAttrInfo=new PmsBaseAttrInfo();
+
+        PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
         pmsBaseAttrInfo.setCatalog3Id(catalog3Id);
-        return attrInfoMapper.select(pmsBaseAttrInfo);
+        List<PmsBaseAttrInfo> pmsBaseAttrInfos = attrInfoMapper.select(pmsBaseAttrInfo);
+        /**
+         * 获取平台属性值
+         */
+        for (PmsBaseAttrInfo pmsBaseAttrInfo1 : pmsBaseAttrInfos) {
+            PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
+            pmsBaseAttrValue.setAttrId(pmsBaseAttrInfo1.getId());
+            List<PmsBaseAttrValue> baseAttrValues = attrValueMapper.select(pmsBaseAttrValue);
+            pmsBaseAttrInfo1.setAttrValueList(baseAttrValues);
+        }
+
+        return pmsBaseAttrInfos;
     }
 
     @Override
     public int saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo) {
 
         String attrId = pmsBaseAttrInfo.getId();
-        if(StringUtils.isEmpty(attrId)) {
+        if (StringUtils.isEmpty(attrId)) {
             /**
              * attrId为null 插入
              * insert insertSelective
@@ -50,24 +67,24 @@ public class AttrServiceImpl implements AttrService {
                     attrValueMapper.insertSelective(pmsBaseAttrValue);
                 }
             }
-        }else {
+        } else {
             /**
              * attrId不为null 修改
              * 修改属性
              */
-            Example example=new Example(PmsBaseAttrInfo.class);
-            example.createCriteria().andEqualTo("id",pmsBaseAttrInfo.getId());
-            attrInfoMapper.updateByExampleSelective(pmsBaseAttrInfo,example);
+            Example example = new Example(PmsBaseAttrInfo.class);
+            example.createCriteria().andEqualTo("id", pmsBaseAttrInfo.getId());
+            attrInfoMapper.updateByExampleSelective(pmsBaseAttrInfo, example);
             /**
              * 修改属性值
              * 先删除属性值，再插入
              */
-            PmsBaseAttrValue pmsBaseAttrValueDel=new PmsBaseAttrValue();
+            PmsBaseAttrValue pmsBaseAttrValueDel = new PmsBaseAttrValue();
             pmsBaseAttrValueDel.setAttrId(pmsBaseAttrInfo.getId());
             attrValueMapper.delete(pmsBaseAttrValueDel);
 
-            List<PmsBaseAttrValue> pmsBaseAttrValues=pmsBaseAttrInfo.getAttrValueList();
-            for(PmsBaseAttrValue pmsBaseAttrValue:pmsBaseAttrValues){
+            List<PmsBaseAttrValue> pmsBaseAttrValues = pmsBaseAttrInfo.getAttrValueList();
+            for (PmsBaseAttrValue pmsBaseAttrValue : pmsBaseAttrValues) {
                 attrValueMapper.insertSelective(pmsBaseAttrValue);
             }
         }
@@ -77,11 +94,10 @@ public class AttrServiceImpl implements AttrService {
 
     @Override
     public List<PmsBaseAttrValue> getAttrValueList(String attrId) {
-        PmsBaseAttrValue pmsBaseAttrValue=new PmsBaseAttrValue();
+        PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
         pmsBaseAttrValue.setAttrId(attrId);
         return attrValueMapper.select(pmsBaseAttrValue);
     }
-
 
 
 }

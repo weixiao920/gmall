@@ -1,10 +1,7 @@
 package com.wang.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.wang.gmall.bean.PmsSkuAttrValue;
-import com.wang.gmall.bean.PmsSkuImage;
-import com.wang.gmall.bean.PmsSkuInfo;
-import com.wang.gmall.bean.PmsSkuSaleAttrValue;
+import com.wang.gmall.bean.*;
 import com.wang.gmall.manage.mapper.PmsSkuAttrValueMapper;
 import com.wang.gmall.manage.mapper.PmsSkuImageMapper;
 import com.wang.gmall.manage.mapper.PmsSkuInfoMapper;
@@ -65,4 +62,29 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService {
             pmsSkuSaleAttrValueMapper.insert(pmsSkuSaleAttrValue);
         }
     }
+
+    @Override
+    public PmsSkuInfo getSkuInfo(String skuId) {
+        PmsSkuInfo pmsSkuInfo=new PmsSkuInfo();
+        pmsSkuInfo.setId(skuId);
+        PmsSkuInfo skuInfo = pmsSkuInfoMapper.selectOne(pmsSkuInfo);
+
+        /**
+         * 获取图片集合
+         */
+        PmsSkuImage pmsSkuImage=new PmsSkuImage();
+        pmsSkuImage.setSkuId(skuId);
+
+        List<PmsSkuImage> pmsSkuImages = pmsSkuImageMapper.select(pmsSkuImage);
+        skuInfo.setSkuImageList(pmsSkuImages);
+
+        return skuInfo;
+    }
+
+    @Override
+    public List<PmsSkuInfo> getSkuAttrValueListBySpu(String id) {
+        return pmsSkuInfoMapper.selectSkuAttrValueListBySpu(id);
+    }
+
+
 }

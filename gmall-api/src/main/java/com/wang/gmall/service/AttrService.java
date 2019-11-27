@@ -4,6 +4,7 @@ import com.wang.gmall.bean.PmsBaseAttrInfo;
 import com.wang.gmall.bean.PmsBaseAttrValue;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author 微笑
@@ -16,4 +17,5 @@ public interface AttrService {
 
     List<PmsBaseAttrValue> getAttrValueList(String attrId);
 
+    List<PmsBaseAttrInfo> getAttrValueListByValueId(Set<String> valueIdSet);
 }

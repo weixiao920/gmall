@@ -68,4 +68,5 @@ public class PmsProductSaleAttr implements Serializable {
     public void setSpuSaleAttrValueList(List<PmsProductSaleAttrValue> spuSaleAttrValueList) {
         this.spuSaleAttrValueList = spuSaleAttrValueList;
     }
+
 }

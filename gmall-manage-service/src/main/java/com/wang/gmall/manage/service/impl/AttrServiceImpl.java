@@ -6,12 +6,13 @@ import com.wang.gmall.bean.PmsBaseAttrValue;
 import com.wang.gmall.manage.mapper.AttrInfoMapper;
 import com.wang.gmall.manage.mapper.AttrValueMapper;
 import com.wang.gmall.service.AttrService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author 微笑
@@ -97,6 +98,13 @@ public class AttrServiceImpl implements AttrService {
         PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
         pmsBaseAttrValue.setAttrId(attrId);
         return attrValueMapper.select(pmsBaseAttrValue);
+    }
+
+    @Override
+    public List<PmsBaseAttrInfo> getAttrValueListByValueId(Set<String> valueIdSet) {
+        String valueIdStr = StringUtils.join(valueIdSet, ",");
+
+        return  attrInfoMapper.selectAttrValueListByValueId(valueIdStr);
     }
 
 

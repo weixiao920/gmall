@@ -1,4 +1,4 @@
-package com.wang.gmall.manage;
+package com.wang.gmall;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;

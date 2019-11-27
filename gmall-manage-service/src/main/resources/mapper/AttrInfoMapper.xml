@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wang.gmall.manage.mapper.AttrInfoMapper">
-    <resultMap id="AttrInfoValue" type="com.wang.gmall.manage.mapper.AttrInfoMapper">
-        <id property="id" column="id" ></id>
-        <result property="attrName" column="attr_name"></result>
-        <result property="catalog3Id" column="catalog3_id"></result>
-        <result property="isEnabled" column="is_enabled"></result>
-        <collection property="attrValueList" ofType="com.wang.gmall.bean.PmsBaseAttrValue">
-            <id property="id"  column="aid"></id>
-            <result property="valueName" column="value_name"></result>
-            <result property="attrId" column="attr_id"></result>
-            <result property="isEnabled" column="is_enabled"></result>
+    <resultMap id="AttrBaseInfo" type="com.wang.gmall.bean.PmsBaseAttrInfo" autoMapping="true">
+        <result column="ba_id" property="id"></result>
+
+        <collection property="attrValueList" ofType="com.wang.gmall.bean.PmsBaseAttrValue" autoMapping="true">
+            <result column="bv_id" property="id"></result>
+
         </collection>
     </resultMap>
-
+    <select id="selectAttrValueListByValueId" resultMap="AttrBaseInfo">
+        SELECT
+        ba.*,bv.*,ba.id as ba_id ,bv.id as bv_id
+        FROM
+        pms_base_attr_info ba,
+        pms_base_attr_value bv
+        WHERE
+        ba.id=bv.attr_id
+        AND bv.id in (${valueIdStr})
+    </select>
 </mapper>

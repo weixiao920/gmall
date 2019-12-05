@@ -19,5 +19,22 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.wang.gmall</groupId>
+            <artifactId>gmall-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wang.gmall</groupId>
+            <artifactId>gmall-common-util</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--     JWT工具   -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
     </dependencies>
 </project>

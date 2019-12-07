@@ -3,6 +3,7 @@ package com.wang.gmall.service;
 import com.wang.gmall.bean.PmsProductInfo;
 import com.wang.gmall.bean.PmsSkuInfo;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -18,4 +19,6 @@ public interface PmsSkuInfoService {
     List<PmsSkuInfo> getSkuAttrValueListBySpu(String id);
 
     List<PmsSkuInfo> getSkuAll();
+
+    boolean checkPrice(String productSkuId, BigDecimal price);
 }

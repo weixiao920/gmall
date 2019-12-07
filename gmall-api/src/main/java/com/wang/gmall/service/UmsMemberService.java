@@ -25,4 +25,8 @@ public interface UmsMemberService {
     UmsMember getUmsMemberById(String id);
 
     UmsMemberReceiveAddress getUmsMemberReceiveAddressById(String id);
+
+    UmsMember login(UmsMember umsMember);
+
+    UmsMember checkOauthUser(UmsMember umsCheck);
 }
